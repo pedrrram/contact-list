@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import { memo } from 'react';
 
 import FormControl from './FormControl';
 
@@ -8,9 +9,9 @@ const AddContact = ({ addContact }) => {
     email: '',
   });
 
-  const changeHandler = (e) => {
+  const changeHandler = useCallback((e) => {
     setContact((prevCon) => ({ ...prevCon, [e.target.name]: e.target.value }));
-  };
+  }, []);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -44,8 +45,8 @@ const AddContact = ({ addContact }) => {
         <button
           type="submti"
           onClick={submitHandler}
-          className="bg-zinc-900 text-zinc-50 border border-zinc-900 px-4 py-2 rounded-lg transition-all duration-300
-        hover:bg-zinc-200 hover:text-zinc-900"
+          className="text-zinc-800 bg-yellow-500 font-normal border border-yellow-500 px-5 py-2 rounded-lg transition-all duration-300
+         hover:shadow-lg hover:shadow-yellow-500/50"
         >
           Add Contact
         </button>
@@ -54,4 +55,4 @@ const AddContact = ({ addContact }) => {
   );
 };
 
-export default AddContact;
+export default memo(AddContact);

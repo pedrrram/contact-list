@@ -1,8 +1,10 @@
+import { memo } from 'react';
+
 import userImage from '../../assets/user.png';
 
 const Contact = ({ contact, deleteContact }) => {
   return (
-    <div className="flex justify-between items-center w-1/3 bg-zinc-900 border border-zinc-700 px-5 py-3 rounded-xl">
+    <div className="flex justify-between items-center w-full sm:w-1/3 bg-zinc-900 border border-zinc-700 px-5 py-3 rounded-xl">
       <div className="flex items-center">
         <img
           src={userImage}
@@ -15,7 +17,7 @@ const Contact = ({ contact, deleteContact }) => {
       <div onClick={() => deleteContact(contact.id)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-rose-600 cursor-pointer"
+          className="h-6 w-6 text-rose-600 cursor-pointer hover:text-rose-400 transition-colors duration-300"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -32,4 +34,4 @@ const Contact = ({ contact, deleteContact }) => {
   );
 };
 
-export default Contact;
+export default memo(Contact);

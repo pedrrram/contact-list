@@ -1,29 +1,33 @@
-import { useState } from 'react';
+import { lazy, Suspense, useCallback, useState } from 'react';
 
 import AddContact from './AddContact';
-import ContactList from './ContactList';
+const ContactList = lazy(() =>
+  import(/* webpackChunkName: "ContactList" */ './ContactList')
+);
 
 const ContactApp = () => {
   const [contacts, setConatcts] = useState([]);
 
-  const addContact = (contact) => {
+  const addContact = useCallback((contact) => {
     setConatcts((prevContacts) => [
       ...prevContacts,
       { id: Date.now(), ...contact },
     ]);
-  };
+  }, []);
 
-  const deleteContact = (id) => {
+  const deleteContact = useCallback((id) => {
     setConatcts((prevContacts) => [
       ...prevContacts.filter((cn) => cn.id !== id),
     ]);
-  };
+  }, []);
 
   return (
     <>
       <AddContact addContact={addContact} />
       {contacts.length ? (
-        <ContactList contacts={contacts} deleteContact={deleteContact} />
+        <Suspense>
+          <ContactList contacts={contacts} deleteContact={deleteContact} />
+        </Suspense>
       ) : null}
     </>
   );
