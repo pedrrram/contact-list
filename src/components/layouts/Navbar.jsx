@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   const items = [
-    { name: 'Home', to: '/' },
+    { name: 'Contacts', to: '/' },
     { name: 'Add Contact', to: '/add' },
   ];
 

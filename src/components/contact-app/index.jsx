@@ -2,6 +2,7 @@ import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 
 import { Outlet } from 'react-router-dom';
 
+import { getContacts } from '../../services/contactServices';
 const ContactList = lazy(() =>
   import(/* webpackChunkName: "ContactList" */ './ContactList')
 );
@@ -10,10 +11,7 @@ const ContactApp = () => {
   const [contacts, setConatcts] = useState([]);
 
   const addContact = useCallback((contact) => {
-    setConatcts((prevContacts) => [
-      ...prevContacts,
-      { id: Date.now(), ...contact },
-    ]);
+    setConatcts((prevContacts) => [...prevContacts, contact]);
   }, []);
 
   const deleteContact = useCallback((id) => {
@@ -23,13 +21,12 @@ const ContactApp = () => {
   }, []);
 
   useEffect(() => {
-    const savedContacts = JSON.parse(localStorage.getItem('contacts'));
-    if (savedContacts) setConatcts(savedContacts);
+    getContacts()
+      .then((data) => {
+        setConatcts(data);
+      })
+      .catch((err) => console.log(err));
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
 
   return (
     <>

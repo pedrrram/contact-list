@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+
 import Contact from '../components/contact-app/Contact';
 
 const ContactDetails = () => {
@@ -6,11 +7,7 @@ const ContactDetails = () => {
     state: { contact },
   } = useLocation();
 
-  return (
-    <div className="w-full sm:w-1/3">
-      <Contact contact={contact} />
-    </div>
-  );
+  return <Contact contact={contact} />;
 };
 
 export default ContactDetails;

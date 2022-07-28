@@ -16,6 +16,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "serveData": "json-server --p 3003 -w data/db.json",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -2,6 +2,8 @@ import { memo } from 'react';
 
 import { useOutletContext } from 'react-router-dom';
 
+import { addContactService } from '../../services/contactServices';
+
 import { contactFormConfig } from '../form/contactFormConfig';
 import useForm from '../form/useForm';
 
@@ -12,8 +14,16 @@ const AddContact = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (data.name && data.email) {
-      addContact(data);
-      setData({ name: '', email: '' });
+      const contact = {
+        id: new Date().getTime(),
+        ...data,
+      };
+      addContactService(contact)
+        .then((res) => {
+          addContact(contact);
+          setData({ name: '', email: '' });
+        })
+        .catch((err) => console.log(err));
     }
   };
 
