@@ -1,9 +1,12 @@
 import { memo } from 'react';
 
+import { useOutletContext } from 'react-router-dom';
+
 import { contactFormConfig } from '../form/contactFormConfig';
 import useForm from '../form/useForm';
 
-const AddContact = ({ addContact }) => {
+const AddContact = () => {
+  const addContact = useOutletContext();
   const [data, setData, Inputs] = useForm(contactFormConfig);
 
   const submitHandler = (e) => {

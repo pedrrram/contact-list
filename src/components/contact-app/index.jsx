@@ -1,6 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 
-import AddContact from './AddContact';
+import { Outlet } from 'react-router-dom';
 
 const ContactList = lazy(() =>
   import(/* webpackChunkName: "ContactList" */ './ContactList')
@@ -33,7 +33,7 @@ const ContactApp = () => {
 
   return (
     <>
-      <AddContact addContact={addContact} />
+      <Outlet context={addContact} />
       {contacts.length ? (
         <Suspense>
           <ContactList contacts={contacts} deleteContact={deleteContact} />
