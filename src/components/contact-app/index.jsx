@@ -1,6 +1,7 @@
-import { lazy, Suspense, useCallback, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 
 import AddContact from './AddContact';
+
 const ContactList = lazy(() =>
   import(/* webpackChunkName: "ContactList" */ './ContactList')
 );
@@ -20,6 +21,15 @@ const ContactApp = () => {
       ...prevContacts.filter((cn) => cn.id !== id),
     ]);
   }, []);
+
+  useEffect(() => {
+    const savedContacts = JSON.parse(localStorage.getItem('contacts'));
+    if (savedContacts) setConatcts(savedContacts);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
   return (
     <>
