@@ -1,47 +1,23 @@
-import { useState, useCallback } from 'react';
 import { memo } from 'react';
 
-import FormControl from './FormControl';
+import { contactFormConfig } from '../form/contactFormConfig';
+import useForm from '../form/useForm';
 
 const AddContact = ({ addContact }) => {
-  const [contact, setContact] = useState({
-    name: '',
-    email: '',
-  });
-
-  const changeHandler = useCallback((e) => {
-    setContact((prevCon) => ({ ...prevCon, [e.target.name]: e.target.value }));
-  }, []);
+  const [data, setData, Inputs] = useForm(contactFormConfig);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (contact.name && contact.email) {
-      addContact(contact);
-      setContact({ name: '', email: '' });
+    if (data.name && data.email) {
+      addContact(data);
+      setData({ name: '', email: '' });
     }
   };
 
   return (
     <form className="bg-zinc-800 w-full flex flex-col items-center justify-center p-5 rounded-xl text-lg">
       <div className="flex flex-col justify-center items-center sm:w-96 space-y-4">
-        <FormControl
-          labelValue="Name"
-          inputAttrs={{
-            name: 'name',
-            value: contact.name,
-            onChange: changeHandler,
-            type: 'text',
-          }}
-        />
-        <FormControl
-          labelValue="Email"
-          inputAttrs={{
-            name: 'email',
-            value: contact.email,
-            onChange: changeHandler,
-            type: 'text',
-          }}
-        />
+        {Inputs}
         <button
           type="submti"
           onClick={submitHandler}
