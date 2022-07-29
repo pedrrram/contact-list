@@ -3,11 +3,15 @@ import { Routes, Route } from 'react-router-dom';
 
 import Layout from './components/layouts/Layout';
 import ContactApp from './components/contact-app';
-// import Contact from './components/contact-app/Contact';
 import NotFound from './pages/NotFound';
 import ContactDetails from './pages/ContactDetails';
 
-const AddContact = lazy(() => import('./components/contact-app/AddContact'));
+const AddContact = lazy(() =>
+  import(
+    /* webpackChunkName: "AddContact" */ './components/contact-app/AddContact'
+  )
+);
+const EditContact = lazy(() => import('./pages/EditContact'));
 
 const App = () => {
   return (
@@ -24,6 +28,14 @@ const App = () => {
           />
         </Route>
         <Route path="contacts/:id" element={<ContactDetails />} />
+        <Route
+          path="edit/:id"
+          element={
+            <Suspense>
+              <EditContact />
+            </Suspense>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>

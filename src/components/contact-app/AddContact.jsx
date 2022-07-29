@@ -6,6 +6,7 @@ import { addContactService } from '../../services/contactServices';
 
 import { contactFormConfig } from '../form/contactFormConfig';
 import useForm from '../form/useForm';
+import Button from '../Button';
 
 const AddContact = () => {
   const addContact = useOutletContext();
@@ -20,8 +21,10 @@ const AddContact = () => {
       };
       addContactService(contact)
         .then((res) => {
-          addContact(contact);
-          setData({ name: '', email: '' });
+          if (res.status === 201) {
+            addContact(contact);
+            setData({ name: '', email: '' });
+          }
         })
         .catch((err) => console.log(err));
     }
@@ -31,14 +34,7 @@ const AddContact = () => {
     <form className="bg-zinc-800 w-full flex flex-col items-center justify-center p-5 rounded-xl text-lg">
       <div className="flex flex-col justify-center items-center sm:w-96 space-y-4">
         {Inputs}
-        <button
-          type="submti"
-          onClick={submitHandler}
-          className="text-zinc-800 bg-yellow-500 font-normal border border-yellow-500 px-5 py-2 rounded-lg transition-all duration-300
-         hover:shadow-lg hover:shadow-yellow-500/50"
-        >
-          Add Contact
-        </button>
+        <Button onClick={submitHandler}>Add Contact</Button>
       </div>
     </form>
   );

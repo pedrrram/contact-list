@@ -1,11 +1,9 @@
-import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { Outlet } from 'react-router-dom';
 
 import { getContacts } from '../../services/contactServices';
-const ContactList = lazy(() =>
-  import(/* webpackChunkName: "ContactList" */ './ContactList')
-);
+import ContactList from './ContactList';
 
 const ContactApp = () => {
   const [contacts, setConatcts] = useState([]);
@@ -32,9 +30,7 @@ const ContactApp = () => {
     <>
       <Outlet context={addContact} />
       {contacts.length ? (
-        <Suspense>
-          <ContactList contacts={contacts} deleteContact={deleteContact} />
-        </Suspense>
+        <ContactList contacts={contacts} deleteContact={deleteContact} />
       ) : null}
     </>
   );

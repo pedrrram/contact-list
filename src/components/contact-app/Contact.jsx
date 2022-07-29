@@ -16,7 +16,7 @@ const Contact = ({ contact, deleteContact }) => {
   };
 
   return (
-    <div className="flex justify-between items-center w-full sm:w-1/3 bg-zinc-900 border border-zinc-700 px-5 py-3 rounded-xl">
+    <div className="flex justify-between items-center w-full sm:w-1/3 bg-zinc-900 border border-zinc-700 px-5 py-3 rounded-xl space-x-3">
       <Link
         to={`/contacts/${contact.id}`}
         state={{ contact }}
@@ -29,6 +29,23 @@ const Contact = ({ contact, deleteContact }) => {
         />
         <span className="mr-4">{contact.name}</span>
         <span>{contact.email}</span>
+      </Link>
+
+      <Link to={`/edit/${contact.id}`}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 text-sky-600 cursor-pointer hover:text-sky-400 transition-colors duration-300"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+          />
+        </svg>
       </Link>
 
       {deleteContact && (
