@@ -1,7 +1,13 @@
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+interface NavItem {
+  name: string;
+  to: string;
+}
+
 const Navbar = () => {
-  const items = [
+  const items: NavItem[] = [
     { name: 'Contacts', to: '/' },
     { name: 'Add Contact', to: '/add' },
   ];

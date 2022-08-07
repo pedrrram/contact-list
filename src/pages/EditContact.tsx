@@ -1,26 +1,26 @@
-import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, FormEvent } from 'react';
+import { Params, useNavigate, useParams } from 'react-router-dom';
 
 import { contactFormConfig } from '../components/form/contactFormConfig';
 import useForm from '../components/form/useForm';
 import Button from '../components/Button';
 
 import { getContact, updateContact } from '../services/contactServices';
+import { IContact } from '../types/types';
 
 const EditContact = () => {
   const [data, setData, Inputs] = useForm(contactFormConfig);
-  const { id } = useParams();
-
+  const { id = '' }: Readonly<Params<string>> = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     getContact(id).then((res) => setData({ name: res.name, email: res.email }));
   }, []);
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: FormEvent): void => {
     e.preventDefault();
     if (data.name && data.email) {
-      const contact = {
+      const contact: IContact = {
         id,
         ...data,
       };

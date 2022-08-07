@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import React, { FormEvent, memo } from 'react';
 
 import { useOutletContext } from 'react-router-dom';
 
@@ -7,15 +7,18 @@ import { addContactService } from '../../services/contactServices';
 import { contactFormConfig } from '../form/contactFormConfig';
 import useForm from '../form/useForm';
 import Button from '../Button';
+import { IContact } from '../../types/types';
 
-const AddContact = () => {
-  const addContact = useOutletContext();
+type ContextType = (contact: IContact) => void;
+
+const AddContact: React.FC = () => {
+  const addContact = useOutletContext<ContextType>();
   const [data, setData, Inputs] = useForm(contactFormConfig);
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: FormEvent) => {
     e.preventDefault();
     if (data.name && data.email) {
-      const contact = {
+      const contact: IContact = {
         id: new Date().getTime(),
         ...data,
       };

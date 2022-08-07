@@ -1,8 +1,14 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
 
-import Contact from './Contact';
+import { IContact } from '../../types/types';
+import Contact from './Contact'
 
-const ContactList = ({ contacts, deleteContact }) => {
+interface Props {
+  contacts: IContact[];
+  deleteContact: (id: number) => void;
+}
+
+const ContactList: React.FC<Props> = ({ contacts, deleteContact }) => {
   return (
     <div className="text-zinc-50 mt-6 w-full flex flex-col items-center space-y-3">
       {contacts.map((contact) => (
